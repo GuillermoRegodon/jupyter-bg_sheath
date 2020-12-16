@@ -1,6 +1,15 @@
-name: bg_sheath-environment
+name: base
+channels:
+  - defaults
 dependencies:
-  - numpy
-  - matplotlib
-  - copy
-  - scipy
+  - conda
+  - python=3.8
+  - python.app
+  - conda-env
+  - conda-build
+  - conda-verify
+  - _ipyw_jlab_nb_ext_conf
+  - anaconda==2020.11=py38_0
+  - anaconda-navigator
+  - navigator-updater
+prefix: /opt/anaconda3
