@@ -1,0 +1,6 @@
+name: bg_sheath-environment
+dependencies:
+  - numpy
+  - matplotlib
+  - copy
+  - scipy
