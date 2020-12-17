@@ -100,7 +100,7 @@ def cylindrical(bg):
                     print("663193")
           
             if bg.config.warn:
-                print("bg_sheath looking for singuarity loop, xu - xd = {0}; xtest = {1}".format(xu-xd, xtest))
+                print("bg_sheath looking for singularity loop, xu - xd = {0}; xtest = {1}".format(xu-xd, xtest))
             
             if (xtest<0.001):
                 print("Ip too low for sheath to form, Ip = {0}".format(Ip))
