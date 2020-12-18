@@ -206,7 +206,7 @@ def cylindrical(bg):
         N = [f.NnormEuler(x[i], y[i][0], bg) for i in range(len(x))]
 
 # Calculates towards the axis
-        _xp = 0
+        __xp = 0
 
         if (__xp < x0+rkincrement): # Calculates to the left if necessary
             bg.g.sol_Euler = -1
@@ -221,21 +221,21 @@ def cylindrical(bg):
                 [y2, x2] = f.runge_kutta(f.poisson_cyl, [y0, ydot0], [x0, x_up], -rkincrement, bg)
                 # This one always converges, no need to check anything
 
-                N2 = [f.NnormEuler(x2[i], y2[i], bg) for i in range(len(x2))]
+                N2 = [f.NnormEuler(x2[i], y2[i][0], bg) for i in range(len(x2))]
 
             else:     # __xp is to the left but very close, no need to calculate
                 y2 = []
                 x2 = []
 
-            if length(x2)!=0:
+            if len(x2)!=0:
 
-                x_array = [x2(i) for i in reversed(range(len(x2)))] + x
+                x_array = [x2[i] for i in reversed(range(len(x2)))] + x
 
-                yz = [y2(i) for i in reversed(range(len(y2)))] + y
+                yz = [y2[i] for i in reversed(range(len(y2)))] + y
                 y_array = [yz[i][0] for i in range(len(yz))]
                 z_array = [yz[i][1] for i in range(len(yz))]
 
-                N_array = [N2(i) for i in reversed(range(len(N2)))] + N
+                N_array = [N2[i] for i in reversed(range(len(N2)))] + N
 
             else:
                 x_array = x
