@@ -112,7 +112,7 @@ def cylindrical(bg):
                 
         x0a = xtest;
         
-        if bg.config.graph:
+        if bg.config.warn:
             print("Singularity at x0a = ", x0a)
         
         if bg.config.graph or bg.config.save:
@@ -129,11 +129,13 @@ def cylindrical(bg):
                 xd = xd_prev
             
 # We have to calculate where the solutions u and d are too distint
-            print("Calculate solutions diverging down")
+            if bg.config.warn:
+                print("Calculate solutions diverging down")
             [x0u, y0u, ydot0u, xl] = f.getInitFloat(xu, bg)
             [y_d, x_d] = f.runge_kutta(f.poisson_cyl, [y0u, ydot0u], [x0u, xinf+x0u], rkincrement, bg)
         
-            print("Calculate solutions diverging up")
+            if bg.config.warn:
+                print("Calculate solutions diverging up")
             [x0d, y0d, ydot0d, xl] = f.getInitFloat(xd, bg)
             [y_u, x_u] = f.runge_kutta(f.poisson_cyl, [y0d, ydot0d], [x0d, xinf+x0d], rkincrement, bg)
             
@@ -270,7 +272,7 @@ def cylindrical(bg):
         z_array = [y2[i][1] for i in reversed(range(len(x2))) if x2[i] > 0]
         N_array = [N2[i] for i in reversed(range(len(x2))) if x2[i] > 0]
         
-    return [x_array, y_array, z_array, N_array]
+    bg.x_array, bg.y_array, bg.z_array, bg.N_array = x_array, y_array, z_array, N_array
     
 
 
