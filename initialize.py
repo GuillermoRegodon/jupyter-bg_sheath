@@ -21,10 +21,7 @@ constants.uma = 1.66054e-27     #SI
 
 
 
-particle_masses_select = "Argon and electrons"
-# particle_masses_select = "Neon and electrons"
-# particle_masses_select = "Oxigen O+ and O-"
-# particle_masses_select = "Enter masses"
+plasma_options = ["Argon and electrons", "Neon and electrons", "Helium and electrons", "Oxygen O+ and O-"]
         
         
         
@@ -42,22 +39,27 @@ def get_int(s):
 
 class Plasma:
     A, B, *_ = none_initializer()
+    
+    def __init__(self, kind):
+        if kind in plasma_options:
+            if kind == "Argon and electrons":
+                self.A = 39.948        #Argon cation mass, umas
+                self.B = constants.m_e           #defined above, electron mass, umas
+            elif kind == "Neon and electrons":
+                self.A = 20.18         #Neon cation mass, umas
+                self.B = constants.m_e           #defined above, electron mass, umas
+            elif kind == "Helium and electrons":
+                self.A = 4.0026        #Helium cation mass, umas
+                self.B = constants.m_e           #defined above, electron mass, umas
+            elif kind == "Oxygen O+ and O-":
+                self.A = 15.9989       #Oxygen single charged cation mass, umas
+                self.B = 15.9999       #Oxygen single charged anion mass, umas
+            else:
+                self.A = get_int("Enter positive ion mass, in umas")
+                self.B = get_int("Enter negative ion mass, in umas")
 
-plasma = Plasma()
 
-if particle_masses_select == "Argon and electrons":
-    plasma.A = 39.948        #Argon cation mass, umas
-    plasma.B = constants.m_e           #defined above, electron mass, umas
-elif particle_masses_select == "Neon and electrons":
-    plasma.A = 20.18         #Neon cation mass, umas
-    plasma.B = constants.m_e           #defined above, electron mass, umas
-elif particle_masses_select == "Oxigen O+ and O-":
-    plasma.A = 15.9989       #Oxygen single charged cation mass, umas
-    plasma.B = 15.9999       #Oxygen single charged anion mass, umas
-else:
-    plasma.A = get_int("Enter positive ion mass, in umas")
-    plasma.B = get_int("Enter negative ion mass, in umas")
-print("Positive ion mass = {0} and Negative ion mass = {1}".format(plasma.A, plasma.B))
+plasma = Plasma("Argon and electrons")
         
         
 
@@ -97,7 +99,7 @@ configuration.numprec = 1e-9
 configuration.graph = 1
 configuration.save = 0
 configuration.warn = 0
-configuration.time_calculation_reduction = 3     #reduces compute time, 3 is ok
+configuration.time_calculation_reduction = 5     #reduces compute time, 3 is ok
 configuration.xinf = 20
 #Ap = np.pi*6e-3*2e-4 ??
 

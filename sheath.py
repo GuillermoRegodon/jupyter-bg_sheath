@@ -213,7 +213,7 @@ def cylindrical(bg):
 
             rkincrement = min(1, xl)/Nrk     # this line is key to control de duration of the calculations
 
-            if rkincrement < x0-__xp:     # If there is something to calculate. Note redinition of rkincrement
+            if rkincrement < x0-__xp:     # If there is something to calculate. Note redefinition of rkincrement
                 x_up = __xp-rkincrement     # Set x_up below __xp
                 if x_up < 0:                     # If negative,
                     x_up = bg.config.numprec     # Set a minimum nonzero value
@@ -274,7 +274,8 @@ def cylindrical(bg):
 
     bg.x_array, bg.y_array, bg.z_array, bg.N_array = x_array, y_array, z_array, N_array
 
-
+    bg.V_array = [Ip/(x_array[i]*N_array[i]) for i in range(len(N_array))]
+    bg.T_array = [beta*(N_array[i]/(alpha0+1))**(kappa-1) for i in range(len(N_array))]
 
 
 

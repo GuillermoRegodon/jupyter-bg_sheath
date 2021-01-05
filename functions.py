@@ -196,9 +196,7 @@ def getydotCI(x0, y0, bg=[]):
 def getylimit(bg=[]):
     '''
     getylimit(bg=[]): Returns the maximum value of the potential according
-    to the quasineutral solution, before it returns back to the plasma.
-    The quasineutral solution becomes invalid for lower values of y. This
-    limit is useful in plots and in estimations of quasineutral validity'''
+    to the quasineutral solution, before the singularity is reached.'''
     kappa = bg.g.kappa
     
 #    if (kappa == 2):
