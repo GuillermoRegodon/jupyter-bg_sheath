@@ -8,8 +8,6 @@ def defineI0tuple(bg=[]):
     defineI0tuple(bg): Defines the values of I01, and I02, the constants
     before the effusion negative particles currents collected by the
     probe.'''
-    I01 = bg.g.I01
-    I02 = bg.g.I02
     A = bg.p.A
     B = bg.p.B
     m_e = bg.c.m_e
@@ -372,4 +370,10 @@ def runge_kutta(f, y_0, tlim, h, bg=[]):
     t = t[0:len(y)]
     
     return [y, t]
+
+def findvaluev(x, y, x1):
+    for i in range(1, len(x)):
+        if (x[i] > x1) or (i == len(x)-1):
+            return y[i-1] + (x1-x[i-1])*(y[i]-y[i-1])/(x[i] - x[i-1])
+
 

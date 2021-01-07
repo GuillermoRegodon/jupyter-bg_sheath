@@ -1,6 +1,5 @@
 .DS_Store
 .ipynb_checkpoints/
 .notes.txt
-__pycache__/*.pyc
 *.pyc
 .gitignore
