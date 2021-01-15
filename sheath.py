@@ -46,6 +46,8 @@ def cylindrical(bg):
     warn = bg.config.warn
     time_calculation_reduction = bg.config.time_calculation_reduction
     xinf = bg.config.xinf
+    if bg.c.save_approx:
+        bg.approx = []
 
     __xMAX = xMAX + 20; # local of xMAX
     frac_tail = 0.5;
@@ -84,6 +86,10 @@ def cylindrical(bg):
 
 # bg_runge_kutta stops if non validity of the solution, valid only for this problem
             [y, x] = f.runge_kutta(f.poisson_cyl, [y0, ydot0], [x0, xinf+x0], rkincrement, bg)
+            if bg.c.save_approx:
+                y_save = [y[i][0] for i in range(len(x))]
+                z_save = [y[i][1] for i in range(len(x))]
+                bg.approx.append((x, y_save, z_save))
 
             if y[-1][0] > 0:
                 xd_prev = xd
@@ -111,6 +117,7 @@ def cylindrical(bg):
                 break
 
         x0a = xtest;
+        bg.g.x0a = x0a
 
         if bg.config.warn:
             print("Singularity at x0a = ", x0a)
@@ -158,8 +165,8 @@ def cylindrical(bg):
                 ydotd = y[i][1]-0.01
                 ydotu = y[i][1]+0.01
 
-                x = x[1:(i-1)]
-                y = y[1:(i-1)]
+                x = x[0:(i-1)]
+                y = y[0:(i-1)]
 
                 while True:
                     ydotwin = 0.5*(ydotu+ydotd)
@@ -200,22 +207,24 @@ def cylindrical(bg):
         except ValueError:
             pass
         else:
-            x = x[0:i]
-            y = y[0:i]
+            pass
+        x = x[1:i]
+        y = y[1:i]
 
         N = [f.NnormEuler(x[i], y[i][0], bg) for i in range(len(x))]
 
 # Calculates towards the axis
         __xp = 0
 
-        if (__xp < x0+rkincrement): # Calculates to the left if necessary
+        if (__xp < x0): # Calculates to the left if necessary
+#        if (__xp < x0+rkincrement): # Calculates to the left if necessary
             bg.g.sol_Euler = -1
 
             rkincrement = min(1, xl)/Nrk     # this line is key to control de duration of the calculations
 
             if rkincrement < x0-__xp:     # If there is something to calculate. Note redefinition of rkincrement
                 x_up = __xp-rkincrement     # Set x_up below __xp
-                if x_up < 0:                     # If negative,
+                if x_up < bg.config.numprec:     # If negative,
                     x_up = bg.config.numprec     # Set a minimum nonzero value
 
                 [y2, x2] = f.runge_kutta(f.poisson_cyl, [y0, ydot0], [x0, x_up], -rkincrement, bg)

@@ -353,7 +353,8 @@ def runge_kutta(f, y_0, tlim, h, bg=[]):
         
         if h > 0:
             # exit condition
-            if (i<len(t) and (t[i] <= 0)) or (y[-1][0]*y[-1][1] > 0):
+            if (i<len(t) and (t[i] <= 0)) or (y[-1][0] < 0) or (y[-1][0] > 10000):
+            #if (i<len(t) and (t[i] <= 0)) or (y[-1][0]*y[-1][1] > 0): #stops calculation as soon as possible
                 break
                 
         else:

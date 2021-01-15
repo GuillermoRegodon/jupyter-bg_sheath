@@ -101,6 +101,7 @@ configuration.save = 0
 configuration.warn = 0
 configuration.time_calculation_reduction = 5     #reduces compute time, 3 is ok
 configuration.xinf = 20
+configuration.save_approx = False
 #Ap = np.pi*6e-3*2e-4 ??
 
 
