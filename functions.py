@@ -14,8 +14,8 @@ def defineI0tuple(bg=[]):
     alpha0 = bg.g.alpha0
     gamma = bg.g.gamma
     
-    I02 = np.sqrt(A/(4*np.pi*m_e))
-    I01 = I02*alpha0*np.sqrt(m_e/(B*gamma))
+    I01 = np.sqrt(A/(4*np.pi*m_e)) # I have changed 1 and 2, revise
+    I02 = I01*alpha0*np.sqrt(m_e/(B*gamma))
     
     bg.g.I01, bg.g.I02 = I01, I02
 

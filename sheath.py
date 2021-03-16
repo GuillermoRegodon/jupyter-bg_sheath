@@ -46,7 +46,7 @@ def cylindrical(bg):
     warn = bg.config.warn
     time_calculation_reduction = bg.config.time_calculation_reduction
     xinf = bg.config.xinf
-    if bg.c.save_approx:
+    if bg.config.save_approx:
         bg.approx = []
 
     __xMAX = xMAX + 20; # local of xMAX
@@ -86,7 +86,7 @@ def cylindrical(bg):
 
 # bg_runge_kutta stops if non validity of the solution, valid only for this problem
             [y, x] = f.runge_kutta(f.poisson_cyl, [y0, ydot0], [x0, xinf+x0], rkincrement, bg)
-            if bg.c.save_approx:
+            if bg.config.save_approx:
                 y_save = [y[i][0] for i in range(len(x))]
                 z_save = [y[i][1] for i in range(len(x))]
                 bg.approx.append((x, y_save, z_save))
